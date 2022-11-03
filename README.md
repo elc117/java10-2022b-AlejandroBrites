@@ -5,17 +5,17 @@ java10-2022b-AlejandroBrites created by GitHub Classroom
 Existem duas possibilidades de perdas de dados no conta bancaria
 
 O Thread Deposita faz o seginte processo:
-'''
+```
 1- 1A° Thread Deposita carrega o valor do saldo da memoria.
 2- 2A° Thread Deposita executa a soma do Saldo com o valor depositado.
 3- 3A° Thread Deposita atribui o resultado dessa soma ao atributo saldo. 
-'''
+```
 O Thread Retira faz o seginte processo:
-'''
+```
 1- 1B° Thread Retira carrega o valor do saldo da memoria.
 2- 2B° Thread Retira executa a subtração do Saldo com o valor retirado.
 3- 3B° Thread Retira atribui o resultado dessa subtração ao atributo saldo. 
-'''
+```
 Existem algumas situações na ordem que essas ações podem ocorrer que fazem resultados erroneos surgirem tanto para mais tanto para menos.
 
 
