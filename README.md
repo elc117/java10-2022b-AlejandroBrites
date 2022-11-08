@@ -22,7 +22,7 @@ O Thread Retira executa os seguintes passos:
 
 Existem algumas situações, nas quais a ordem em que essas ações ocorrem acabam gerando resultados equivocados, gerado pela maneira que as Threads são executadas.
 
-Essas situações de erro na execução desse código ocorrem quando as Threads carregam o valor do saldo uma seguida da outra. Com isso a segunda acaba carregando um velor desatualizado do saldo que não leva em consideração a operação da Thread que ainda não foi concluida.
+Essas situações de erro na execução desse código ocorrem quando as Threads carregam o valor do saldo uma seguida da outra. Com isso a segunda acaba carregando um valor desatualizado do saldo que não leva em consideração a operação da Thread que ainda não foi concluida.
 
 
 ```
@@ -55,13 +55,13 @@ Com essa situação acontecendo a "intrução A" não tera efeito pois a conta e
 A segunda situação que pode ocorrer é o Thread Deposita atribuir o resultado da adição ao atributo saldo, e após isso Thread Retira atribui o resultado da subtração ao atributo saldo.
 
 ```
-5- 3A° Thread Deposita atribui o resultado dessa subtração ao atributo saldo. (Intrução A)
-6- 3B° Thread Retira atribui o resultado dessa adição ao atributo saldo.      (Intrução B)  
+5- 3A° Thread Deposita atribui o resultado dessa subtração ao atributo saldo. (Intrução B)
+6- 3B° Thread Retira atribui o resultado dessa adição ao atributo saldo.      (Intrução A)  
 ```
 
-Com essa situação acontecendo novamente a "intrução A" não tera efeito pois a conta executada pelo Thread Retira calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, fazendo com uma ação de adição não tenha relevancia, fazendo com que o saldo final tenha um valor abaixo do esperado.  
+Com essa situação acontecendo a "instrução B" não tera efeito pois a conta executada pelo Thread Retira calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, fazendo com uma ação de adição não tenha relevancia, fazendo com que o saldo final tenha um valor abaixo do esperado.  
 
-Já que o código "OperacoesBancareas.java" executa 10 somas e 5 subtrações as situações acima descrita podem acontecer diversas vezes durante a execução fazendo com que o resultado se torne incorreto.
+Já que o código "OperacoesBancareas.java" executa 10 somas e 5 subtrações as situações acima descrita podem acontecer diversas vezes durante a execução fazendo com que o resultado se torne incorreto, com várias somas e subtrações podendo perder seu efeito dependendo do modo de execuação. 
 
 Exemplo de uma adição sendo ignorada:
 
@@ -103,3 +103,5 @@ Oque deveria acontecer:
 100 + 100 - 50 = 150
  
 Se os eventos acima simulados ocorrerem multiplas vezes durante a execução do código o saldo final pode ter um valor acima do valor esperado ou abaixo dependendo de quantas adições e subtrações forem ignoradas e esses valores irão variar de acordo com a ordem em que os Thread são executados e quais as operações perdem a sua relevância.
+
+Utilizando o recurso "synchronized" nos métodos de "deposita" e "retira" da classe "Conta" irá evitar que esses erros aconteçam, pois utilizando o "synchronized" as Threads serão executadas de forma que as nehhuma Thread tenha seu efeito ignorado.
