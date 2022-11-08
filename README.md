@@ -44,22 +44,22 @@ Caso as situções acima descritas ocorram duas situações podem acontrecer
 A primeira situação que pode ocorrer, durante a conclusão das operações, é o Thread Retira atribuir o resultado da subtração ao atributo saldo, e após isso Thread Deposita atribuir o resultado da adição ao atributo saldo.
 
 ```
-5- 3B° Thread Retira atribui o resultado dessa subtração ao atributo saldo. (Intrução A)
-6- 3A° Thread Deposita atribui o resultado dessa adição ao atributo saldo.  (Intrução B)   
+5- (3B) Thread Retira atribui o resultado dessa subtração ao atributo saldo. (Intrução B)
+6- (3A) Thread Deposita atribui o resultado dessa adição ao atributo saldo.  (Intrução A)   
 ```
 
-Com essa situação acontecendo a "intrução A" não tera efeito pois a conta executada pelo Thread Deposita calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, que não levava em conta a Instrução A, fazendo com uma ação de subtração seja ignorada fazendo com que o saldo final tenha um valor acima do esperado.    
+Com essa situação acontecendo a "intrução B" não tera efeito pois a conta executada pelo Thread Deposita calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, que não levava em conta a Instrução A, fazendo com uma ação de subtração seja ignorada fazendo com que o saldo final tenha um valor acima do esperado.    
 
 2° Situação
 
 A segunda situação que pode ocorrer é o Thread Deposita atribuir o resultado da adição ao atributo saldo, e após isso Thread Retira atribui o resultado da subtração ao atributo saldo.
 
 ```
-5- 3A° Thread Deposita atribui o resultado dessa subtração ao atributo saldo. (Intrução B)
-6- 3B° Thread Retira atribui o resultado dessa adição ao atributo saldo.      (Intrução A)  
+5- (3A) Thread Deposita atribui o resultado dessa subtração ao atributo saldo. (Intrução A)
+6- (3B) Thread Retira atribui o resultado dessa adição ao atributo saldo.      (Intrução B)  
 ```
 
-Com essa situação acontecendo a "instrução B" não tera efeito pois a conta executada pelo Thread Retira calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, fazendo com uma ação de adição não tenha relevancia, fazendo com que o saldo final tenha um valor abaixo do esperado.  
+Com essa situação acontecendo a "instrução A" não tera efeito pois a conta executada pelo Thread Retira calculou o novo valor do atributo saldo utilizando um valor desatualiza do atributo saldo, fazendo com uma ação de adição não tenha relevancia, fazendo com que o saldo final tenha um valor abaixo do esperado.  
 
 Já que o código "OperacoesBancareas.java" executa 10 somas e 5 subtrações as situações acima descrita podem acontecer diversas vezes durante a execução fazendo com que o resultado se torne incorreto, com várias somas e subtrações podendo perder seu efeito dependendo do modo de execuação. 
 
@@ -68,12 +68,12 @@ Exemplo de uma adição sendo ignorada:
 saldo inicial = 100
 
 ```
-1- 1A° Thread Deposita carrega o valor do saldo da memoria.                  (saldoA = 100)
-2- 1B° Thread Retira carrega o valor do saldo da memoria.                    (saldoB = 100)    
-3- 2A° Thread Deposita executa a soma do Saldo com o valor depositado.       (resultadoA = 100 + 100 = 200)_  
-4- 2B° Thread Retira executa a subtração do Saldo com o valor retirado.      (resultadoB = 100 - 50 = 50)_     
-5- 3A° Thread Deposita atribui o resultado dessa soma ao atributo saldo.     (saldoA = resultadoA = 200) 
-6- 3B° Thread Retira atribui o resultado dessa subtração ao atributo saldo.  (saldoB = resultadoB = 50) 
+1- (1A) Thread Deposita carrega o valor do saldo da memoria.                  (saldoA = 100)
+2- (1B) Thread Retira carrega o valor do saldo da memoria.                    (saldoB = 100)    
+3- (2A) Thread Deposita executa a soma do Saldo com o valor depositado.       (resultadoA = 100 + 100 = 200)_  
+4- (2B) Thread Retira executa a subtração do Saldo com o valor retirado.      (resultadoB = 100 - 50 = 50)_     
+5- (3A) Thread Deposita atribui o resultado dessa soma ao atributo saldo.     (saldoA = resultadoA = 200) 
+6- (3B) Thread Retira atribui o resultado dessa subtração ao atributo saldo.  (saldoB = resultadoB = 50) 
 ```
 
 saldo final = 50
@@ -88,12 +88,12 @@ Exemplo de uma subtração sendo ignorada:
 saldo inicial = 100
 
 ```
-1- 1A° Thread Deposita carrega o valor do saldo da memoria.                  (saldoA = 100)
-2- 1B° Thread Retira carrega o valor do saldo da memoria.                    (saldoB = 100)    
-3- 2A° Thread Deposita executa a soma do Saldo com o valor depositado.       (resultadoA = 100 + 100 = 200)_  
-4- 2B° Thread Retira executa a subtração do Saldo com o valor retirado.      (resultadoB = 100 - 50 = 50)_     
-5- 3B° Thread Retira atribui o resultado dessa subtração ao atributo saldo.  (saldoB = resultadoB = 50) 
-6- 3A° Thread Deposita atribui o resultado dessa soma ao atributo saldo.     (saldoA = resultadoA = 200) 
+1- (1A) Thread Deposita carrega o valor do saldo da memoria.                  (saldoA = 100)
+2- (1B) Thread Retira carrega o valor do saldo da memoria.                    (saldoB = 100)    
+3- (2A) Thread Deposita executa a soma do Saldo com o valor depositado.       (resultadoA = 100 + 100 = 200)_  
+4- (2B) Thread Retira executa a subtração do Saldo com o valor retirado.      (resultadoB = 100 - 50 = 50)_     
+5- (3B) Thread Retira atribui o resultado dessa subtração ao atributo saldo.  (saldoB = resultadoB = 50) 
+6- (3A) Thread Deposita atribui o resultado dessa soma ao atributo saldo.     (saldoA = resultadoA = 200) 
 ```
 
 saldo final = 200
